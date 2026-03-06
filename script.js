@@ -16,8 +16,10 @@ const previewFrame = document.getElementById("previewFrame");
 const languageSelect = document.getElementById("languageSelect");
 
 const LANGUAGE_STORAGE_KEY = "free-qrcode-language";
+const LANGUAGE_QUERY_PARAM = "lang";
 const DEFAULT_LANGUAGE = "pt-BR";
 const DEFAULT_QR_SIZE = 512;
+const APP_BASE_URL = "http://freeqrcode.rxmos.dev.br/";
 
 const STATUS_STYLE_MAP = {
   info: "border-[#18130f]/20 bg-[#18130f]/5 text-[#18130f]/80",
@@ -118,6 +120,27 @@ const TRANSLATIONS = {
   },
 };
 
+const SEO_TRANSLATIONS = {
+  "pt-BR": {
+    title: "Free QRCode Generator | Gerador de QR Code Gratis com Logo",
+    description:
+      "Crie QR Code gratis online com logo central, ajuste de tamanho e download em PNG. Free QRCode Generator pronto para uso em campanhas, embalagens e cardapios.",
+    ogDescription: "Crie QR Code gratis online com logo central, ajuste de tamanho e download em PNG.",
+    twitterDescription: "Crie QR Code gratis online com logo central, ajuste de tamanho e download em PNG.",
+    ogImageAlt: "Preview do Free QRCode Generator",
+    ogLocale: "pt_BR",
+  },
+  "en-US": {
+    title: "Free QRCode Generator | Free QR Code Generator with Logo",
+    description:
+      "Create a free QR Code online with an optional center logo, sizing controls, and PNG export. Ready-to-use Free QRCode Generator for campaigns, packaging, and menus.",
+    ogDescription: "Create free QR Codes online with optional center logo and PNG export.",
+    twitterDescription: "Create free QR Codes online with optional center logo and PNG export.",
+    ogImageAlt: "Free QRCode Generator preview",
+    ogLocale: "en_US",
+  },
+};
+
 const CONTROL_LIST = [
   qrContentInput,
   logoInput,
@@ -140,6 +163,85 @@ const state = {
 };
 
 let qrCodeLibraryPromise = null;
+
+const getSeoPack = (language) => SEO_TRANSLATIONS[language] || SEO_TRANSLATIONS[DEFAULT_LANGUAGE];
+
+const setMetaTagContent = (selector, content) => {
+  const element = document.querySelector(selector);
+  if (!element) {
+    return;
+  }
+
+  element.setAttribute("content", content);
+};
+
+const setLinkHref = (selector, href) => {
+  const element = document.querySelector(selector);
+  if (!element) {
+    return;
+  }
+
+  element.setAttribute("href", href);
+};
+
+const buildLanguageUrl = (language) => {
+  const url = new URL(APP_BASE_URL);
+
+  if (language === "en-US") {
+    url.searchParams.set(LANGUAGE_QUERY_PARAM, "en-US");
+  }
+
+  return url.toString();
+};
+
+const getLanguageFromUrl = () => {
+  try {
+    const url = new URL(window.location.href);
+    const languageParam = url.searchParams.get(LANGUAGE_QUERY_PARAM);
+
+    if (languageParam && TRANSLATIONS[languageParam]) {
+      return languageParam;
+    }
+  } catch (_error) {}
+
+  return null;
+};
+
+const updateLanguageInUrl = (language) => {
+  try {
+    const url = new URL(window.location.href);
+
+    if (language === DEFAULT_LANGUAGE) {
+      url.searchParams.delete(LANGUAGE_QUERY_PARAM);
+    } else {
+      url.searchParams.set(LANGUAGE_QUERY_PARAM, language);
+    }
+
+    const nextUrl = `${url.pathname}${url.search}${url.hash}`;
+    window.history.replaceState({}, "", nextUrl);
+  } catch (_error) {}
+};
+
+const applySeoMetadata = (language) => {
+  const seo = getSeoPack(language);
+  const localizedUrl = buildLanguageUrl(language);
+
+  document.title = seo.title;
+
+  setMetaTagContent('meta[name="description"]', seo.description);
+  setMetaTagContent('meta[property="og:title"]', seo.title);
+  setMetaTagContent('meta[property="og:description"]', seo.ogDescription);
+  setMetaTagContent('meta[property="og:url"]', localizedUrl);
+  setMetaTagContent('meta[property="og:locale"]', seo.ogLocale);
+  setMetaTagContent('meta[property="og:image:alt"]', seo.ogImageAlt);
+  setMetaTagContent('meta[name="twitter:title"]', seo.title);
+  setMetaTagContent('meta[name="twitter:description"]', seo.twitterDescription);
+
+  setLinkHref('link[rel="canonical"]', localizedUrl);
+  setLinkHref('link[rel="alternate"][hreflang="pt-BR"]', buildLanguageUrl("pt-BR"));
+  setLinkHref('link[rel="alternate"][hreflang="en-US"]', buildLanguageUrl("en-US"));
+  setLinkHref('link[rel="alternate"][hreflang="x-default"]', buildLanguageUrl("pt-BR"));
+};
 
 const getLanguagePack = (language) => TRANSLATIONS[language] || TRANSLATIONS[DEFAULT_LANGUAGE];
 
@@ -229,6 +331,8 @@ const applyLanguage = (language) => {
   updateGenerateButtonLabel();
   updateLogoFileNameText();
   renderStatus();
+  applySeoMetadata(normalizedLanguage);
+  updateLanguageInUrl(normalizedLanguage);
 
   try {
     localStorage.setItem(LANGUAGE_STORAGE_KEY, normalizedLanguage);
@@ -236,6 +340,11 @@ const applyLanguage = (language) => {
 };
 
 const getInitialLanguage = () => {
+  const languageFromUrl = getLanguageFromUrl();
+  if (languageFromUrl) {
+    return languageFromUrl;
+  }
+
   try {
     const persistedLanguage = localStorage.getItem(LANGUAGE_STORAGE_KEY);
     if (persistedLanguage && TRANSLATIONS[persistedLanguage]) {
