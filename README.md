@@ -6,6 +6,12 @@
 
 A free, fast, no-sign-up QR Code generator with optional center logo and PNG export.
 
+## Live App (Ready to Use)
+
+The project is deployed and ready to use at:
+
+`http://freeqrcode.rxmos.dev.br/`
+
 ## Overview
 
 This project is a static web application to generate QR Codes with a custom visual identity. You provide text or a URL, optionally add a center logo, adjust logo size and white padding, then download a high-quality result.
