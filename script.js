@@ -13,7 +13,7 @@ const downloadButton = document.getElementById("downloadButton");
 const statusMessage = document.getElementById("statusMessage");
 const qrCanvas = document.getElementById("qrCanvas");
 const previewFrame = document.getElementById("previewFrame");
-const languageSelect = document.getElementById("languageSelect");
+const languageButtons = document.querySelectorAll("[data-language-button]");
 
 const LANGUAGE_STORAGE_KEY = "free-qrcode-language";
 const LANGUAGE_QUERY_PARAM = "lang";
@@ -22,9 +22,9 @@ const DEFAULT_QR_SIZE = 512;
 const APP_BASE_URL = "http://freeqrcode.rxmos.dev.br/";
 
 const STATUS_STYLE_MAP = {
-  info: "border-[#18130f]/20 bg-[#18130f]/5 text-[#18130f]/80",
-  success: "border-emerald-800/30 bg-emerald-50 text-emerald-800",
-  error: "border-rose-800/35 bg-rose-50 text-rose-800",
+  info: "border-zinc-200 bg-zinc-50 text-zinc-700",
+  success: "border-emerald-200 bg-emerald-50 text-emerald-700",
+  error: "border-rose-200 bg-rose-50 text-rose-700",
 };
 
 const TRANSLATIONS = {
@@ -52,7 +52,7 @@ const TRANSLATIONS = {
       downloadButton: "Baixar PNG",
       previewBadge: "preview",
       cameraTip: "Dica: use URL completa com https:// para melhorar a leitura em aplicativos de câmera.",
-      footerText: "Visual renovado para transmitir mais personalidade sem perder simplicidade.",
+      footerText: "Made with luv by @yurirxmos",
     },
     status: {
       initial: "Preencha os campos e clique em Gerar QR Code.",
@@ -97,7 +97,7 @@ const TRANSLATIONS = {
       downloadButton: "Download PNG",
       previewBadge: "preview",
       cameraTip: "Tip: use a full URL with https:// to improve scanning on camera apps.",
-      footerText: "A refreshed visual identity with personality and clarity.",
+      footerText: "Made with luv by @yurirxmos",
     },
     status: {
       initial: "Fill in the fields and click Generate QR Code.",
@@ -141,12 +141,7 @@ const SEO_TRANSLATIONS = {
   },
 };
 
-const CONTROL_LIST = [
-  qrContentInput,
-  logoInput,
-  logoScale,
-  logoPadding,
-].filter((element) => Boolean(element));
+const CONTROL_LIST = [qrContentInput, logoInput, logoScale, logoPadding].filter((element) => Boolean(element));
 const QR_CODE_SCRIPT_SOURCES = [
   "https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js",
   "https://unpkg.com/qrcode@1.5.4/build/qrcode.min.js",
@@ -268,7 +263,7 @@ const getStatusKeyFromError = (error, fallbackKey) => {
 const renderStatus = () => {
   const styleClass = STATUS_STYLE_MAP[state.lastStatusType] || STATUS_STYLE_MAP.info;
   statusMessage.textContent = t("status", state.lastStatusKey);
-  statusMessage.className = `min-h-12 rounded-2xl border px-3 py-2 text-sm font-medium transition ${styleClass}`;
+  statusMessage.className = `min-h-12 rounded-md border px-3 py-2 text-sm font-medium transition ${styleClass}`;
 };
 
 const setStatus = (statusKey, statusType = "info") => {
@@ -298,9 +293,15 @@ const applyLanguage = (language) => {
 
   document.documentElement.lang = normalizedLanguage;
 
-  if (languageSelect) {
-    languageSelect.value = normalizedLanguage;
-  }
+  languageButtons.forEach((button) => {
+    if (!(button instanceof HTMLButtonElement)) {
+      return;
+    }
+
+    const isActive = button.dataset.languageButton === normalizedLanguage;
+    button.setAttribute("aria-pressed", isActive ? "true" : "false");
+    button.classList.toggle("bg-zinc-200", isActive);
+  });
 
   document.querySelectorAll("[data-i18n]").forEach((element) => {
     const key = element.dataset.i18n;
@@ -694,11 +695,20 @@ generateButton.addEventListener("click", generateQrCode);
 downloadButton.addEventListener("click", downloadQrCode);
 logoInput.addEventListener("change", handleLogoChange);
 
-if (languageSelect) {
-  languageSelect.addEventListener("change", () => {
-    applyLanguage(languageSelect.value);
+languageButtons.forEach((button) => {
+  if (!(button instanceof HTMLButtonElement)) {
+    return;
+  }
+
+  button.addEventListener("click", () => {
+    const selectedLanguage = button.dataset.languageButton;
+    if (!selectedLanguage) {
+      return;
+    }
+
+    applyLanguage(selectedLanguage);
   });
-}
+});
 
 logoScale.addEventListener("input", () => {
   logoScaleValue.textContent = logoScale.value;

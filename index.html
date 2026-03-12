@@ -143,7 +143,7 @@
       crossorigin
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,500;10..48,700;10..48,800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <script src="https://cdn.tailwindcss.com"></script>
@@ -152,27 +152,7 @@
         theme: {
           extend: {
             fontFamily: {
-              display: ["Bricolage Grotesque", "sans-serif"],
-              body: ["DM Sans", "sans-serif"],
-              code: ["JetBrains Mono", "monospace"],
-            },
-            keyframes: {
-              rise: {
-                "0%": { opacity: "0", transform: "translateY(18px)" },
-                "100%": { opacity: "1", transform: "translateY(0)" },
-              },
-              bob: {
-                "0%, 100%": { transform: "translateY(0px) rotate(-1.2deg)" },
-                "50%": { transform: "translateY(-6px) rotate(1.2deg)" },
-              },
-            },
-            animation: {
-              rise: "rise 700ms ease-out both",
-              bob: "bob 5s ease-in-out infinite",
-            },
-            boxShadow: {
-              stamp: "9px 9px 0 0 #18130f",
-              card: "0 14px 38px rgba(24,19,15,0.14)",
+              sans: ["Manrope", "sans-serif"],
             },
           },
         },
@@ -184,241 +164,263 @@
       src="./script.js"
     ></script>
   </head>
-  <body class="min-h-screen bg-[#efe8d8] font-body text-[#18130f] antialiased selection:bg-[#e6a028]/30">
-    <div class="relative isolate overflow-hidden">
-      <div
-        class="pointer-events-none absolute inset-0 -z-30 bg-[radial-gradient(circle_at_8%_15%,rgba(236,164,55,0.28)_0%,transparent_42%),radial-gradient(circle_at_86%_24%,rgba(42,88,80,0.22)_0%,transparent_44%),radial-gradient(circle_at_48%_92%,rgba(150,57,35,0.18)_0%,transparent_48%)]"
-      ></div>
-      <div
-        class="pointer-events-none absolute inset-0 -z-20 bg-[linear-gradient(130deg,rgba(255,255,255,0.45)_0%,rgba(255,255,255,0.08)_40%,rgba(0,0,0,0.02)_100%)]"
-      ></div>
-      <div
-        class="pointer-events-none absolute inset-0 -z-10 opacity-40 [background-image:linear-gradient(rgba(24,19,15,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(24,19,15,0.08)_1px,transparent_1px)] [background-size:32px_32px]"
-      ></div>
-
-      <main class="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 py-8 sm:px-6 lg:py-12">
-        <header class="grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div class="space-y-4 animate-rise">
-            <p
-              data-i18n="badge"
-              class="inline-flex rounded-full border-2 border-[#18130f] bg-[#f7c14f] px-4 py-1.5 font-code text-[11px] font-bold uppercase tracking-[0.24em] text-[#18130f] shadow-[4px_4px_0_0_#18130f]"
-            >
-              studio edition · sem cadastro
-            </p>
-            <h1
-              data-i18n="heroTitle"
-              class="max-w-4xl font-display text-4xl font-extrabold uppercase leading-[0.95] tracking-[-0.03em] text-[#18130f] sm:text-5xl lg:text-6xl"
-            >
-              Crie um QR Code com identidade visual forte.
-            </h1>
-            <p
-              data-i18n="heroDescription"
-              class="max-w-2xl text-sm text-[#30261f] sm:text-base"
-            >
-              Digite o conteúdo, aplique sua marca no centro e exporte em PNG pronto para impressão, cardápio, embalagem
-              ou campanha.
-            </p>
-            <div class="flex items-center gap-2">
-              <label
-                for="languageSelect"
-                data-i18n="languageLabel"
-                class="font-code text-[11px] font-bold uppercase tracking-[0.18em] text-[#4c3e32]"
-              >
-                Idioma
-              </label>
-              <select
-                id="languageSelect"
-                class="rounded-xl border-2 border-[#18130f]/35 bg-[#fffaf0] px-2.5 py-1.5 font-code text-[11px] font-bold uppercase tracking-[0.12em] text-[#18130f] outline-none transition focus:border-[#c24b2b]"
-              >
-                <option value="pt-BR">PT-BR</option>
-                <option value="en-US">EN-US</option>
-              </select>
-            </div>
-          </div>
-
-          <aside
-            class="animate-bob self-start rounded-3xl border-2 border-[#18130f] bg-[#1b2623] p-4 text-[#e7f8ef] shadow-stamp lg:max-w-[280px]"
+  <body class="min-h-screen bg-zinc-50 font-sans text-zinc-900 antialiased">
+    <main class="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:py-12">
+      <header class="mb-8 flex flex-col md:flex-row items-end md:items-center justify-between w-full">
+        <div class="space-y-2">
+          <h1
+            data-i18n="heroTitle"
+            class="max-w-3xl text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl"
           >
-            <p
-              data-i18n="creativeDirectionLabel"
-              class="font-code text-[10px] uppercase tracking-[0.22em] text-[#8cd9b5]"
-            >
-              direção criativa
-            </p>
-            <p
-              data-i18n="creativeDirectionTitle"
-              class="mt-2 font-display text-xl leading-tight"
-            >
-              Editorial print com contraste de pôster.
-            </p>
-            <p
-              data-i18n="creativeDirectionDescription"
-              class="mt-3 text-sm text-[#d2efe1]"
-            >
-              Tipografia expressiva, bordas marcantes e atmosfera de papel texturizado.
-            </p>
-          </aside>
-        </header>
-
-        <section class="grid gap-6 xl:grid-cols-[430px_1fr]">
-          <div
-            class="relative space-y-5 rounded-[30px] border-2 border-[#18130f] bg-[#fffaf0]/95 p-5 shadow-card sm:p-6"
+            Crie um QR Code com identidade visual forte.
+          </h1>
+          <p
+            data-i18n="heroDescription"
+            class="max-w-2xl text-sm text-zinc-600 sm:text-base"
           >
-            <div
-              data-i18n="panelBadge"
-              class="absolute -right-2 -top-2 rounded-full border-2 border-[#18130f] bg-[#f37b4f] px-3 py-1 font-code text-[10px] font-bold uppercase tracking-[0.18em] text-[#18130f]"
-            >
-              painel
-            </div>
-
-            <div class="space-y-2">
-              <label
-                for="qrContent"
-                data-i18n="contentLabel"
-                class="block font-code text-[11px] font-bold uppercase tracking-[0.2em] text-[#6b2b1d]"
-                >Conteúdo</label
-              >
-              <input
-                id="qrContent"
-                type="text"
-                placeholder="https://seusite.com"
-                data-i18n-placeholder="contentPlaceholder"
-                class="w-full rounded-2xl border-2 border-[#18130f]/35 bg-[#fffdf8] px-4 py-3 text-sm text-[#18130f] outline-none transition focus:border-[#c24b2b] focus:ring-2 focus:ring-[#f7c14f]/40"
-              />
-            </div>
-
-            <div class="space-y-2">
-              <label
-                for="logoInput"
-                data-i18n="logoLabel"
-                class="block font-code text-[11px] font-bold uppercase tracking-[0.2em] text-[#6b2b1d]"
-                >Logo opcional</label
-              >
-              <input
-                id="logoInput"
-                type="file"
-                accept="image/*"
-                class="block w-full cursor-pointer rounded-2xl border-2 border-[#18130f]/35 bg-[#fffdf8] px-3 py-2.5 text-sm text-[#18130f] file:mr-3 file:rounded-xl file:border-2 file:border-[#18130f] file:bg-[#1b2623] file:px-3 file:py-1.5 file:text-xs file:font-bold file:text-[#e7f8ef] hover:file:bg-[#263a35]"
-              />
-              <p
-                id="logoFileName"
-                data-i18n="logoFileDefault"
-                class="font-code text-[11px] text-[#5a4c41]"
-              >
-                Nenhuma logo selecionada.
-              </p>
-            </div>
-
-            <div class="grid gap-4 sm:grid-cols-2">
-              <div class="space-y-2">
-                <label
-                  for="logoScale"
-                  data-i18n="logoSizeLabel"
-                  class="block font-code text-[11px] font-bold uppercase tracking-[0.18em] text-[#6b2b1d]"
-                  >Tamanho da logo</label
-                >
-                <input
-                  id="logoScale"
-                  type="range"
-                  min="12"
-                  max="32"
-                  value="22"
-                  class="w-full accent-[#b64628]"
-                />
-                <p class="font-code text-[11px] text-[#5a4c41]">
-                  <span id="logoScaleValue">22</span><span id="logoScaleSuffix">% do QR</span>
-                </p>
-              </div>
-
-              <div class="space-y-2">
-                <label
-                  for="logoPadding"
-                  data-i18n="logoPaddingLabel"
-                  class="block font-code text-[11px] font-bold uppercase tracking-[0.18em] text-[#6b2b1d]"
-                  >Margem branca</label
-                >
-                <input
-                  id="logoPadding"
-                  type="range"
-                  min="2"
-                  max="9"
-                  value="5"
-                  class="w-full accent-[#b64628]"
-                />
-                <p class="font-code text-[11px] text-[#5a4c41]">
-                  <span id="logoPaddingValue">5</span><span id="logoPaddingSuffix">% do QR</span>
-                </p>
-              </div>
-            </div>
-
-            <div class="grid gap-3 sm:grid-cols-2">
-              <button
-                id="generateButton"
-                type="button"
-                class="inline-flex items-center justify-center rounded-2xl border-2 border-[#18130f] bg-[#18130f] px-4 py-3 font-code text-[12px] font-bold uppercase tracking-[0.12em] text-[#f7ead2] transition hover:-translate-y-0.5 hover:bg-[#2f2823] disabled:cursor-not-allowed disabled:bg-[#9b948c]"
-              >
-                <span
-                  id="generateButtonLabel"
-                  data-i18n="generateButtonIdle"
-                  >Gerar QR Code</span
-                >
-              </button>
-              <button
-                id="downloadButton"
-                type="button"
-                disabled
-                class="inline-flex items-center justify-center rounded-2xl border-2 border-[#18130f] bg-[#f7c14f] px-4 py-3 font-code text-[12px] font-bold uppercase tracking-[0.12em] text-[#18130f] transition hover:-translate-y-0.5 hover:bg-[#f8ce72] disabled:cursor-not-allowed disabled:bg-[#d8d2c9]"
-                data-i18n="downloadButton"
-              >
-                Baixar PNG
-              </button>
-            </div>
-
-            <p
-              id="statusMessage"
-              aria-live="polite"
-              class="min-h-12 rounded-2xl border border-[#18130f]/20 bg-[#18130f]/5 px-3 py-2 text-sm text-[#18130f]/80"
-            ></p>
-          </div>
-
-          <div class="relative rounded-[32px] border-2 border-[#18130f] bg-[#f6f0e2]/95 p-5 shadow-card sm:p-7">
-            <div
-              data-i18n="previewBadge"
-              class="absolute left-4 top-4 rounded-full border-2 border-[#18130f] bg-[#fffaf0] px-3 py-1 font-code text-[10px] font-bold uppercase tracking-[0.18em] text-[#5d5148]"
-            >
-              preview
-            </div>
-            <div
-              class="flex h-full min-h-[390px] flex-col items-center justify-center gap-5 rounded-[26px] border-2 border-dashed border-[#18130f]/25 bg-[linear-gradient(140deg,#fef7e8_0%,#f5ebd6_48%,#efe3c8_100%)] px-4 py-8"
-            >
-              <div
-                id="previewFrame"
-                class="w-full max-w-[520px] rounded-[2rem] border-2 border-[#18130f] bg-white p-4 shadow-stamp transition-transform duration-300"
-              >
-                <canvas
-                  id="qrCanvas"
-                  width="512"
-                  height="512"
-                  class="aspect-square w-full rounded-[1.4rem] border border-[#18130f]/15 bg-white p-2 shadow-inner shadow-[#18130f]/10"
-                ></canvas>
-              </div>
-              <p
-                data-i18n="cameraTip"
-                class="max-w-lg text-center text-xs text-[#5a4c41]"
-              >
-                Dica: use URL completa com https:// para melhorar a leitura em aplicativos de câmera.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <footer
-          class="flex flex-col gap-2 border-t border-[#18130f]/20 pt-4 text-xs text-[#5d5148] sm:flex-row sm:items-center sm:justify-between"
+            Digite o conteúdo, aplique sua marca no centro e exporte em PNG pronto para impressão, cardápio, embalagem
+            ou campanha.
+          </p>
+        </div>
+        <div
+          id="languageSwitcher"
+          class="flex items-center rounded-md p-1"
         >
-          <p class="font-code uppercase tracking-[0.18em]">free qrcode generator</p>
-          <p data-i18n="footerText">Visual renovado para transmitir mais personalidade sem perder simplicidade.</p>
-        </footer>
-      </main>
-    </div>
+          <button
+            type="button"
+            data-language-button="pt-BR"
+            class="language-flag-button rounded p-1.5 text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-700"
+            title="Português (Brasil)"
+            aria-label="Português (Brasil)"
+          >
+            <svg
+              viewBox="0 0 36 24"
+              aria-hidden="true"
+              class="h-5 w-7 rounded-sm shadow-sm"
+            >
+              <rect
+                width="36"
+                height="24"
+                fill="#009C3B"
+              />
+              <polygon
+                points="18,3 31,12 18,21 5,12"
+                fill="#FFDF00"
+              />
+              <circle
+                cx="18"
+                cy="12"
+                r="5"
+                fill="#002776"
+              />
+            </svg>
+          </button>
+          <button
+            type="button"
+            data-language-button="en-US"
+            class="language-flag-button rounded p-1.5 text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-700"
+            title="English (United States)"
+            aria-label="English (United States)"
+          >
+            <svg
+              viewBox="0 0 19 10"
+              aria-hidden="true"
+              class="h-5 w-7 rounded-sm shadow-sm"
+            >
+              <rect
+                width="19"
+                height="10"
+                fill="#B22234"
+              />
+              <rect
+                y="1"
+                width="19"
+                height="1"
+                fill="#FFFFFF"
+              />
+              <rect
+                y="3"
+                width="19"
+                height="1"
+                fill="#FFFFFF"
+              />
+              <rect
+                y="5"
+                width="19"
+                height="1"
+                fill="#FFFFFF"
+              />
+              <rect
+                y="7"
+                width="19"
+                height="1"
+                fill="#FFFFFF"
+              />
+              <rect
+                y="9"
+                width="19"
+                height="1"
+                fill="#FFFFFF"
+              />
+              <rect
+                width="8"
+                height="5.5"
+                fill="#3C3B6E"
+              />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <section class="grid gap-6 lg:grid-cols-[380px_1fr]">
+        <div class="space-y-5 rounded-xl border border-zinc-200 bg-white p-5 shadow-sm sm:p-6">
+          <div class="space-y-2">
+            <label
+              for="qrContent"
+              data-i18n="contentLabel"
+              class="block text-sm font-medium text-zinc-700"
+              >Conteúdo</label
+            >
+            <input
+              id="qrContent"
+              type="text"
+              placeholder="https://seusite.com"
+              data-i18n-placeholder="contentPlaceholder"
+              class="h-10 w-full rounded-md border border-zinc-300 bg-white px-3 text-sm text-zinc-900 outline-none transition focus:border-zinc-500"
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label
+              for="logoInput"
+              data-i18n="logoLabel"
+              class="block text-sm font-medium text-zinc-700"
+              >Logo opcional</label
+            >
+            <input
+              id="logoInput"
+              type="file"
+              accept="image/*"
+              class="block w-full cursor-pointer rounded-md border border-zinc-300 bg-white text-sm text-zinc-600 file:mr-3 file:rounded-md file:border-0 file:bg-zinc-900 file:px-3 file:py-2 file:text-sm file:font-medium file:text-white hover:file:bg-zinc-700"
+            />
+            <p
+              id="logoFileName"
+              data-i18n="logoFileDefault"
+              class="text-xs text-zinc-500"
+            >
+              Nenhuma logo selecionada.
+            </p>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="space-y-2">
+              <label
+                for="logoScale"
+                data-i18n="logoSizeLabel"
+                class="block text-sm font-medium text-zinc-700"
+                >Tamanho da logo</label
+              >
+              <input
+                id="logoScale"
+                type="range"
+                min="12"
+                max="32"
+                value="22"
+                class="w-full accent-zinc-900"
+              />
+              <p class="text-xs text-zinc-500">
+                <span id="logoScaleValue">22</span><span id="logoScaleSuffix">% do QR</span>
+              </p>
+            </div>
+
+            <div class="space-y-2">
+              <label
+                for="logoPadding"
+                data-i18n="logoPaddingLabel"
+                class="block text-sm font-medium text-zinc-700"
+                >Margem branca</label
+              >
+              <input
+                id="logoPadding"
+                type="range"
+                min="2"
+                max="9"
+                value="5"
+                class="w-full accent-zinc-900"
+              />
+              <p class="text-xs text-zinc-500">
+                <span id="logoPaddingValue">5</span><span id="logoPaddingSuffix">% do QR</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="grid gap-3 sm:grid-cols-2">
+            <button
+              id="generateButton"
+              type="button"
+              class="inline-flex h-10 items-center justify-center rounded-md bg-zinc-900 px-4 text-sm font-medium text-white transition hover:bg-zinc-700 disabled:cursor-not-allowed disabled:bg-zinc-400"
+            >
+              <span
+                id="generateButtonLabel"
+                data-i18n="generateButtonIdle"
+                >Gerar QR Code</span
+              >
+            </button>
+            <button
+              id="downloadButton"
+              type="button"
+              disabled
+              class="inline-flex h-10 items-center justify-center rounded-md border border-zinc-300 bg-white px-4 text-sm font-medium text-zinc-900 transition hover:bg-zinc-100 disabled:cursor-not-allowed disabled:text-zinc-400"
+              data-i18n="downloadButton"
+            >
+              Baixar PNG
+            </button>
+          </div>
+
+          <p
+            id="statusMessage"
+            aria-live="polite"
+            class="min-h-12 rounded-md border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-700"
+          ></p>
+        </div>
+
+        <div class="rounded-xl border border-zinc-200 bg-white p-5 shadow-sm sm:p-7">
+          <p
+            data-i18n="previewBadge"
+            class="mb-4 inline-flex rounded-md border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-medium uppercase tracking-wide text-zinc-600"
+          >
+            preview
+          </p>
+          <div
+            class="flex min-h-[390px] flex-col items-center justify-center gap-5 rounded-xl border border-dashed border-zinc-300 bg-zinc-50 px-4 py-8"
+          >
+            <div
+              id="previewFrame"
+              class="w-full max-w-[520px] rounded-xl border border-zinc-200 bg-white p-4 transition-transform duration-300"
+            >
+              <canvas
+                id="qrCanvas"
+                width="512"
+                height="512"
+                class="aspect-square w-full rounded-lg border border-zinc-200 bg-white p-2"
+              ></canvas>
+            </div>
+            <p
+              data-i18n="cameraTip"
+              class="max-w-lg text-center text-xs text-zinc-500"
+            >
+              Dica: use URL completa com https:// para melhorar a leitura em aplicativos de câmera.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer
+        class="mt-6 flex flex-col gap-2 border-t border-zinc-200 pt-4 text-xs text-zinc-500 sm:flex-row sm:items-center sm:justify-between"
+      >
+        <p class="font-medium uppercase tracking-wide">free qrcode generator</p>
+        <p data-i18n="footerText">Visual renovado para transmitir mais personalidade sem perder simplicidade.</p>
+      </footer>
+    </main>
   </body>
 </html>
